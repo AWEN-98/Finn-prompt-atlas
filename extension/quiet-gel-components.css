@@ -1,0 +1,511 @@
+/* ============================================================
+   F·BASE Optical Haze · Quiet Gel
+   Shared component layer for website, extension and side panel.
+   Load after product styles.
+   ============================================================ */
+
+/* 所有共享视觉参数来自 tokens.css。 */
+
+html,
+body {
+  color: var(--qg-text);
+}
+
+body { background:var(--qg-ambient-bg); }
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  transition-duration: var(--qg-normal);
+  transition-timing-function: var(--qg-ease);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0) scale(.99);
+  transition-duration: var(--qg-fast);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: .46;
+  transform: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--qg-brand);
+  outline-offset: 2px;
+}
+
+/* Shared fields */
+:is(.search-input, .hero-search, .composer, .prompt-composer, .prompt-textarea-wrap, .result-prompt-box),
+.studio-shell :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), textarea, select) {
+  border: 1px solid var(--qg-hairline);
+  border-radius: var(--qg-r-field);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .4), transparent 46%),
+    rgba(253, 252, 249, .78);
+  color: var(--qg-text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .74), inset 0 -8px 14px rgba(37, 36, 33, .025);
+  transform: none;
+  transition: border-color var(--qg-normal) var(--qg-ease), background var(--qg-normal) var(--qg-ease), box-shadow var(--qg-normal) var(--qg-ease);
+}
+
+:is(.search-input, .hero-search, .composer, .prompt-composer, .prompt-textarea-wrap, .result-prompt-box):focus-within,
+.studio-shell :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), textarea, select):focus {
+  border-color: rgba(74, 157, 145, .22);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(74, 157, 145, .035), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, .46), transparent 46%),
+    rgba(253, 252, 249, .82);
+  box-shadow: var(--qg-focus), inset 0 1px 0 rgba(255, 255, 255, .78);
+  transform: none;
+}
+
+::placeholder {
+  color: var(--qg-text-3);
+  opacity: 1;
+}
+
+/* Shared buttons */
+:is(.btn, .button, .studio-intro-toggle),
+.studio-shell :is(.prompt-card-actions, .result-image-actions, .dialog-actions, .result-generation-style-actions) button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-sizing: border-box;
+  padding-inline: 14px;
+  border: 1px solid rgba(37, 36, 33, .065);
+  border-radius: var(--qg-r-control);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .44), rgba(255, 255, 255, .2)),
+    rgba(255, 255, 255, .26);
+  color: var(--qg-text-2);
+  line-height: 1.2;
+  text-align: center;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), var(--qg-shadow-control);
+  transform: none;
+  transition: transform var(--qg-normal) var(--qg-ease), border-color var(--qg-normal) var(--qg-ease), background var(--qg-normal) var(--qg-ease), color var(--qg-normal) var(--qg-ease), box-shadow var(--qg-normal) var(--qg-ease);
+}
+
+:is(.btn, .button, .studio-intro-toggle):hover:not(:disabled),
+.studio-shell :is(.prompt-card-actions, .result-image-actions, .dialog-actions, .result-generation-style-actions) button:hover:not(:disabled) {
+  border-color: rgba(74, 157, 145, .16);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .54), rgba(255, 255, 255, .24)),
+    rgba(74, 157, 145, .045);
+  color: var(--qg-brand-deep);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .78), 0 8px 18px rgba(37, 36, 33, .05);
+  transform: translateY(-1px);
+}
+
+:is(.btn, .button, .studio-intro-toggle):active:not(:disabled),
+.studio-shell :is(.prompt-card-actions, .result-image-actions, .dialog-actions, .result-generation-style-actions) button:active:not(:disabled) {
+  transform: translateY(0) scale(.99);
+}
+
+:is(.btn-primary, .button.primary, .upload-primary, .dock-primary),
+.studio-shell :is(.button.primary, .upload-primary, .dock-primary) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-color: rgba(74, 157, 145, .24);
+  border-radius: var(--qg-r-control);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .58), rgba(255, 255, 255, .26)),
+    rgba(253, 252, 249, .72);
+  background-clip: padding-box;
+  color: var(--qg-brand-deep);
+  font-weight: 700;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .76), inset 0 -2px 0 rgba(74, 157, 145, .12), 0 5px 16px rgba(37, 36, 33, .04);
+}
+
+:is(.btn-primary, .button.primary, .upload-primary, .dock-primary):hover:not(:disabled),
+.studio-shell :is(.button.primary, .upload-primary, .dock-primary):hover:not(:disabled) {
+  border-color: rgba(74, 157, 145, .34);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .64), rgba(255, 255, 255, .3)),
+    rgba(74, 157, 145, .075);
+  color: var(--qg-brand-deep);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), inset 0 -2px 0 rgba(74, 157, 145, .16), 0 8px 20px rgba(37, 36, 33, .055);
+}
+
+.studio-shell :is(.source-actions, .task-run-actions) .button {
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: var(--qg-r-control);
+}
+
+.studio-shell :is(.button.primary, .upload-primary) :is(.button-leading-icon, .ui-icon-spark) {
+  width: 18px;
+  height: 18px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: currentColor;
+  box-shadow: none;
+}
+
+/* Icon geometry is independent from font baselines. */
+:is(.button-leading-icon, .ui-icon, .ui-icon-spark) {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  line-height: 0;
+}
+
+.button-leading-icon {
+  width: 18px;
+  height: 18px;
+}
+
+:is(.button-leading-icon, .ui-icon, .ui-icon-spark, .ui-icon-tile, .icon-button, .dock-icon-button) > svg {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.studio-shell :is(.ui-icon-tile, .icon-button, .task-cycle-button, .dock-icon-button) {
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  line-height: 0;
+  text-align: center;
+}
+
+/* Interactive filter chips stay compact and never inherit pill geometry. */
+:is(.filter-chip, .archive-filter, .ui-charm) {
+  border: 1px solid rgba(37, 36, 33, .055);
+  border-radius: var(--qg-r-control);
+  background: rgba(255, 255, 255, .3);
+  background-clip: padding-box;
+  color: var(--qg-text-2);
+  box-shadow: none;
+  filter: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transform: none;
+  transition: transform var(--qg-fast) var(--qg-ease), border-color var(--qg-fast) var(--qg-ease), background var(--qg-fast) var(--qg-ease), color var(--qg-fast) var(--qg-ease);
+}
+
+:is(.filter-chip, .archive-filter, .ui-charm)::before,
+:is(.filter-chip, .archive-filter, .ui-charm)::after {
+  content: none;
+}
+
+/* Badges and status labels are the only pill-shaped metadata controls. */
+:is(.archive-chip, .source-state, .service-state, .status, .result-count, .new-badge) {
+  border: 1px solid rgba(37, 36, 33, .055);
+  border-radius: var(--qg-r-pill);
+  background: rgba(255, 255, 255, .3);
+  color: var(--qg-text-2);
+  box-shadow: none;
+}
+
+:is(.filter-chip, .archive-filter, .ui-charm):hover:not(:disabled) {
+  border-color: rgba(74, 157, 145, .13);
+  background: rgba(74, 157, 145, .065);
+  color: var(--qg-brand-deep);
+  transform: translateY(-1px);
+}
+
+:is(.filter-chip.active, .archive-filter.active, .ui-charm.selected) {
+  border-color: rgba(74, 157, 145, .13);
+  background: rgba(74, 157, 145, .08);
+  color: #346b64;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Website hierarchy */
+body :is(.studio-intro, .custom-hero, .hero, .composer-card) {
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: var(--qg-r-panel);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .28), rgba(255, 255, 255, .12)), rgba(255, 255, 255, .24);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .66), var(--qg-shadow-card);
+}
+
+body :is(.masonry-card, .term-card, .recipe-card, .combo-card, .archive-card, .input-card, .token-card, .score-card, .custom-card, .studio-card, .analysis-guide, .rnd-result) {
+  border: 1px solid var(--qg-hairline);
+  border-radius: var(--qg-r-field);
+  background: rgba(255, 255, 255, .34);
+  box-shadow: 0 5px 18px rgba(37, 36, 33, .032);
+}
+
+body :is(.masonry-card, .term-card, .recipe-card, .combo-card, .archive-card, .custom-card, .studio-card):hover {
+  border-color: rgba(74, 157, 145, .13);
+  background: rgba(255, 255, 255, .44);
+  box-shadow: 0 9px 24px rgba(37, 36, 33, .045);
+  transform: translateY(-1px);
+}
+
+/* Extension hierarchy */
+.studio-shell :is(.source-card, .result-card, .history-card, .queue-card, .task-card, dialog, .result-lightbox-panel) {
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: var(--qg-r-panel);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .26), rgba(255, 255, 255, .1)), rgba(255, 255, 255, .3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .64), var(--qg-shadow-card);
+}
+
+.studio-shell .task-module {
+  border: 0;
+  border-top: 1px solid rgba(37, 36, 33, .055);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Keep the source disclosure indicator inside the same alignment gutter as
+   the following prompt module. */
+.studio-shell .source-card > .source-module > .task-module-head[data-module-toggle] {
+  width: 100%;
+  min-height: 40px;
+  padding: 6px 10px;
+  box-sizing: border-box;
+}
+
+.studio-shell .source-card > .source-module > .task-module-head[data-module-toggle]::after {
+  margin-right: 1px;
+}
+
+.studio-shell :is(.prompt-input-module, .generated-result-module, .reverse-prompt-card, .generation-tuning-panel, .visual-archive-module) {
+  border: 1px solid rgba(37, 36, 33, .055);
+  border-radius: var(--qg-r-field);
+  background: rgba(255, 255, 255, .22);
+}
+
+.studio-shell :is(.topbar, .studio-head) {
+  border: 1px solid rgba(255, 255, 255, .54);
+  border-radius: var(--qg-r-field);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .38), rgba(255, 255, 255, .22)), rgba(244, 243, 239, .68);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 0 10px 30px rgba(37, 36, 33, .045);
+  backdrop-filter: blur(20px) saturate(112%);
+  -webkit-backdrop-filter: blur(20px) saturate(112%);
+}
+
+.studio-shell :is(.ui-icon-tile, .icon-button, .task-cycle-button, .dock-icon-button) {
+  border: 1px solid rgba(37, 36, 33, .065);
+  border-radius: var(--qg-r-control);
+  background: rgba(255, 255, 255, .38);
+  color: var(--qg-text-2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .65);
+  transform: none;
+}
+
+.studio-shell :is(.ui-icon-tile, .icon-button, .task-cycle-button, .dock-icon-button):hover:not(:disabled) {
+  border-color: rgba(74, 157, 145, .16);
+  background: rgba(74, 157, 145, .07);
+  color: var(--qg-brand-deep);
+  transform: translateY(-1px);
+}
+
+.studio-shell :is(.ui-icon-tile, .icon-button, .task-cycle-button, .dock-icon-button):active:not(:disabled) {
+  transform: scale(.99);
+}
+
+/* Toggle geometry uses one centered inset on every side. */
+.studio-shell .runtime-toggle i {
+  position: relative;
+  display: block;
+  width: var(--qg-switch-width);
+  height: var(--qg-switch-height);
+  flex: 0 0 var(--qg-switch-width);
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid rgba(37, 36, 33, .08);
+  border-radius: var(--qg-r-pill);
+  background: rgba(98, 94, 87, .16);
+  box-shadow: inset 0 1px 2px rgba(37, 36, 33, .055), inset 0 1px 0 rgba(255, 255, 255, .46);
+  transition: border-color var(--qg-fast) var(--qg-ease), background var(--qg-fast) var(--qg-ease), box-shadow var(--qg-fast) var(--qg-ease);
+}
+
+.studio-shell .runtime-toggle i::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: var(--qg-switch-inset);
+  width: var(--qg-switch-thumb);
+  height: var(--qg-switch-thumb);
+  border-radius: var(--qg-r-pill);
+  background: rgba(255, 255, 255, .96);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 4px rgba(37, 36, 33, .14);
+  transform: translate(0, -50%);
+  transition: transform var(--qg-normal) var(--qg-ease);
+}
+
+.studio-shell .runtime-toggle.active i {
+  border-color: rgba(74, 157, 145, .26);
+  background: var(--qg-brand);
+  box-shadow: inset 0 1px 2px rgba(52, 122, 113, .16), inset 0 1px 0 rgba(255, 255, 255, .24);
+}
+
+.studio-shell .runtime-toggle.active i::after {
+  transform: translate(var(--qg-switch-travel), -50%);
+}
+
+/* Website switches share the exact same track, inset and thumb travel. */
+.modal-box .toggle-row .toggle-switch,
+.wm-track {
+  position: relative;
+  display: inline-block;
+  width: var(--qg-switch-width);
+  height: var(--qg-switch-height);
+  flex: 0 0 var(--qg-switch-width);
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid rgba(37, 36, 33, .08);
+  border-radius: var(--qg-r-pill);
+  background: rgba(98, 94, 87, .16);
+  box-shadow: inset 0 1px 2px rgba(37, 36, 33, .055), inset 0 1px 0 rgba(255, 255, 255, .46);
+}
+
+.modal-box .toggle-row .toggle-track {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--qg-r-pill);
+  background: transparent;
+  transition: background var(--qg-fast) var(--qg-ease);
+}
+
+.modal-box .toggle-row .toggle-thumb,
+.wm-track::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: var(--qg-switch-inset);
+  width: var(--qg-switch-thumb);
+  height: var(--qg-switch-thumb);
+  border-radius: var(--qg-r-pill);
+  background: rgba(255, 255, 255, .96);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 4px rgba(37, 36, 33, .14);
+  transform: translate(0, -50%);
+  transition: transform var(--qg-normal) var(--qg-ease);
+}
+
+.modal-box .toggle-row .toggle-switch input:checked ~ .toggle-track,
+.wm-switch input:checked + .wm-track {
+  border-color: rgba(74, 157, 145, .26);
+  background: var(--qg-brand);
+}
+
+.modal-box .toggle-row .toggle-switch input:checked ~ .toggle-track .toggle-thumb,
+.wm-switch input:checked + .wm-track::after {
+  transform: translate(var(--qg-switch-travel), -50%);
+}
+
+/* Segmented controls use concentric Quiet Gel selection tiles. */
+:is(.ws-seg, .prompt-mode-tabs, .visual-archive-tabs, .result-view-switch) {
+  gap: 2px;
+  padding: 4px;
+  overflow: hidden;
+  border: 1px solid var(--qg-hairline);
+  border-radius: var(--qg-r-field);
+  background: rgba(255, 255, 255, .3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .62), var(--qg-shadow-control);
+}
+
+:is(.ws-seg .lib-tab, .prompt-mode-tabs button, .visual-archive-tabs button, .result-view-switch button) {
+  border: 1px solid transparent;
+  border-radius: var(--qg-r-control);
+  background: transparent;
+  color: var(--qg-text-2);
+  box-shadow: none;
+  transform: none;
+  transition: background var(--qg-normal) var(--qg-ease), color var(--qg-normal) var(--qg-ease), box-shadow var(--qg-normal) var(--qg-ease);
+}
+
+:is(.ws-seg .lib-tab, .prompt-mode-tabs button, .visual-archive-tabs button, .result-view-switch button):hover:not(:disabled):not(.active) {
+  border-color: rgba(37, 36, 33, .045);
+  background: rgba(255, 255, 255, .38);
+  color: var(--qg-text);
+  box-shadow: none;
+  transform: none;
+}
+
+:is(.ws-seg .lib-tab.active, .prompt-mode-tabs button.active, .visual-archive-tabs button.active, .result-view-switch button.active),
+:is(.ws-seg .lib-tab.active, .prompt-mode-tabs button.active, .visual-archive-tabs button.active, .result-view-switch button.active):hover {
+  border-color: var(--qg-brand-line);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .62), rgba(255, 255, 255, .22)),
+    var(--qg-brand-soft);
+  color: var(--qg-brand-deep);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .72), 0 3px 10px rgba(37, 36, 33, .035);
+  transform: none;
+}
+
+.ws-seg .ws-thumb {
+  top: 4px;
+  left: 0;
+  bottom: 4px;
+  height: auto;
+  border: 1px solid var(--qg-brand-line);
+  border-radius: var(--qg-r-control);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .66), rgba(255, 255, 255, .24)),
+    var(--qg-brand-soft);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .76), 0 3px 10px rgba(37, 36, 33, .035);
+  will-change: transform, width;
+  transition: transform var(--qg-normal) var(--qg-ease), width var(--qg-normal) var(--qg-ease);
+}
+
+.ws-seg.dragging .ws-thumb {
+  transition: none;
+}
+
+.ws-seg .lib-tab.active,
+.ws-seg .lib-tab.active:hover {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Dialogs and floating layers */
+dialog,
+.modal,
+.drawer,
+.queue-drawer,
+.runtime-drawer,
+.result-lightbox-panel {
+  border: 1px solid rgba(255, 255, 255, .58);
+  border-radius: var(--qg-r-panel);
+  background: rgba(244, 243, 239, .82);
+  box-shadow: var(--qg-shadow-float);
+  backdrop-filter: blur(20px) saturate(112%);
+  -webkit-backdrop-filter: blur(20px) saturate(112%);
+}
+
+/* Type hierarchy */
+:is(h1, h2, h3, .hero-title, .result-headline, .studio-copy h1) {
+  color: var(--qg-text);
+  letter-spacing: -.035em;
+}
+
+:is(p, .lede, .helper, small) {
+  text-wrap: pretty;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+/* 3.1 键盘状态与夜间表面 */
+:is(button,input,select,textarea,a,[tabindex]):focus-visible{outline:var(--focus-outline);outline-offset:var(--focus-offset)}
+:is(.btn,.button,.studio-intro-toggle):disabled{transform:none;box-shadow:none;cursor:not-allowed}
+:is(.btn-emphasis,.button.emphasis){background:var(--fb-action-emphasis-bg);color:var(--fb-action-emphasis-text);border-color:transparent}
+:is(.btn-emphasis,.button.emphasis):hover:not(:disabled){background:var(--fb-action-emphasis-hover);color:var(--fb-action-emphasis-text)}
+[data-theme="night"] :is(.btn,.button,.studio-intro-toggle,.filter-chip,.archive-filter,.ui-charm,.archive-chip,.source-state,.service-state,.status,.result-count,.new-badge,input,textarea,select){background:var(--qg-surface);color:var(--qg-text-2);border-color:var(--qg-hairline);box-shadow:none}
+[data-theme="night"] :is(.studio-intro,.custom-hero,.hero,.composer-card,.masonry-card,.term-card,.recipe-card,.combo-card,.archive-card,.input-card,.token-card,.score-card,.custom-card,.studio-card,.analysis-guide,.rnd-result,.source-card,.result-card,.history-card,.queue-card,.task-card,.topbar,.studio-head,dialog,.modal,.drawer,.queue-drawer,.runtime-drawer,.result-lightbox-panel){background:var(--qg-surface);color:var(--qg-text);border-color:var(--qg-hairline)}
+[data-theme="night"] :is(.btn-primary,.button.primary,.filter-chip.active,.archive-filter.active,.ui-charm.selected,.ws-thumb,.prompt-mode-tabs button.active,.visual-archive-tabs button.active,.result-view-switch button.active){background:var(--qg-brand-soft);color:var(--qg-brand-deep);border-color:var(--qg-brand-line)}
+[data-theme="night"] :is(.btn-emphasis,.button.emphasis){background:var(--fb-action-emphasis-bg);color:var(--fb-action-emphasis-text)}

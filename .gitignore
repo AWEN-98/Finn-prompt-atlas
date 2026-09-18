@@ -1,0 +1,27 @@
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+
+# 本地配置与密钥
+.env
+.env.*
+*.local
+config.local.*
+secrets.*
+
+# 运行数据与日志
+data/
+logs/
+output/
+backups/
+*.log
+
+# 临时文件与历史备份
+*.bak
+*.bak_*
+*.tmp
+*.zip
+node_modules/

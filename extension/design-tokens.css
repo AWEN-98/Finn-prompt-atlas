@@ -1,0 +1,532 @@
+/* ============================================================
+   F·BASE Design Tokens · CANONICAL SOURCE
+   ------------------------------------------------------------
+   跨端共享：知识库 / 词库 / 扩展侧栏
+   只编辑本文件。extension/ 与 output/ 下的副本由
+   scripts/sync-design-tokens.js 自动生成。
+
+   浅色模式以青瓷釉承担大面积阅读界面，标志图中的冷暖光色
+   负责层次，深绿只承担主操作、选中态与键盘焦点。
+
+   用法：默认浅色；<html data-theme="night"> 切到深色。
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* ========== 1. 色彩基元 ========== */
+  /* 暖中性色负责背景、卡片、文字与普通边框 */
+  --neutral-0:   #ffffff;
+  --neutral-50:  #fbfbf9;
+  --neutral-100: #f5f4f0;
+  --neutral-200: #eff0ed;
+  --neutral-300: #e6e7e3;
+  --neutral-400: #d4d8d4;
+  --neutral-500: #8a918d;
+  --neutral-600: #737b76;
+  --neutral-700: #5b625e;
+  --neutral-800: #343a36;
+  --neutral-900: #202421;
+  --neutral-950: #151816;
+
+  /* 光学薄雾 2.0 基础色与半透明表面 */
+  --haze-bg-page:       #f1f0ec;
+  --haze-bg-page-deep:  #e9e8e2;
+  --haze-surface-soft:  rgba(253, 252, 249, .72);
+  --haze-surface-card:  rgba(255, 255, 255, .42);
+  --haze-surface-float: rgba(255, 255, 255, .76);
+  --haze-border-soft:   rgba(42, 41, 38, .06);
+  --haze-border-strong: rgba(42, 41, 38, .11);
+
+  /* Quiet Editorial：Floema 启发的低装饰内容层 */
+  --quiet-canvas:       #f1f0ec;
+  --quiet-surface:      rgba(255, 255, 255, .58);
+  --quiet-surface-hover:rgba(255, 255, 255, .76);
+  --quiet-line:         rgba(42, 41, 38, .075);
+  --quiet-line-active:  rgba(74, 157, 145, .22);
+  --quiet-hover:        rgba(74, 157, 145, .075);
+  --quiet-section-gap:  clamp(28px, 4vw, 56px);
+
+  /* Writing Block：Optical Soft Jelly 全局应用变量 */
+  --writing-page: #f1f0ec;
+  --writing-surface: rgba(255, 255, 255, .46);
+  --writing-surface-soft: rgba(255, 255, 255, .3);
+  --writing-border: rgba(37, 36, 33, .075);
+  --writing-brand-soft: rgba(74, 157, 145, .10);
+  --writing-brand-hover: rgba(74, 157, 145, .14);
+  --writing-brand-border: rgba(74, 157, 145, .24);
+  --writing-brand-glow: rgba(74, 157, 145, .08);
+  --writing-radius: var(--r-xl);
+  --writing-shadow:
+    inset 0 2px 2px rgba(255, 255, 255, .68),
+    inset 0 -10px 18px rgba(42, 41, 38, .035),
+    0 14px 34px rgba(42, 41, 38, .085),
+    0 3px 8px rgba(42, 41, 38, .045);
+  --writing-shadow-focus:
+    0 0 0 4px rgba(74, 157, 145, .10),
+    0 0 28px rgba(74, 157, 145, .08),
+    inset 0 2px 2px rgba(255, 255, 255, .72),
+    inset 0 -10px 18px rgba(42, 41, 38, .03),
+    0 18px 38px rgba(42, 41, 38, .09);
+
+  /* Jelly 融合层：提供柔润高光、轻微折射与饱满边缘 */
+  --jelly-surface: linear-gradient(150deg, rgba(255, 255, 255, .76), rgba(240, 253, 251, .32));
+  --jelly-surface-hover: linear-gradient(150deg, rgba(255, 255, 255, .86), rgba(240, 253, 251, .42));
+  --jelly-brand: linear-gradient(145deg, var(--brand-green-500), var(--brand-green-600) 72%);
+  --jelly-specular: inset 0 1px 0 rgba(255, 255, 255, .68);
+  --jelly-edge: rgba(255, 255, 255, .62);
+  --jelly-refraction-cool: rgba(220, 231, 242, .18);
+  --jelly-refraction-warm: rgba(246, 235, 200, .16);
+
+  /* 青瓷釉保留为局部冷色表面 */
+  --celadon-glaze-main:   #f1f0ec;
+  --celadon-glaze-raised: #f7f6f1;
+  --celadon-glaze-sunken: #eae9e3;
+  --celadon-glaze-deep:   #e2e0d8;
+
+  /* 标志图实测光色，用于光晕、柔和分区与局部层次 */
+  --logo-cool-white: #f0fdfb;
+  --logo-ice-blue:   #defafd;
+  --logo-warm-white: #faefe7;
+  --logo-glacier:    #c8eff5;
+  --logo-mist-grey:  #e2dfda;
+  --logo-silver:     #ccd2cf;
+  --logo-edge:       #adc3c2;
+  --logo-charcoal:   #353736;
+  --logo-charcoal-2: #4b514f;
+
+  /* Cloud Dancer 保留为暖白辅助层 */
+  --cloud-dancer-canvas: #f2f1ec;
+  --cloud-dancer-raised: #faf9f6;
+  --cloud-dancer-sunken: #ecebe6;
+  --cloud-dancer-deep:   #e4e2db;
+  --powder-mist-blue:    var(--logo-ice-blue);
+  --powder-blush:        var(--logo-warm-white);
+  --powder-lemon:        var(--cloud-dancer-canvas);
+  --powder-orchid:       var(--logo-mist-grey);
+
+  /* 固定品牌主色 #4a9d91，用于主操作、选中态与焦点 */
+  --brand-green-50:  #f2f7f6;
+  --brand-green-100: #e4efed;
+  --brand-green-300: #a1c8c2;
+  --brand-green-500: #66a79e;
+  --brand-green-600: #4a9d91;
+  --brand-green-700: #347a71;
+  --brand-green-800: #346a64;
+
+  /* 少量高价值强调，单屏占比控制在 5% 内 */
+  --coral-500: #d96b61;
+  --coral-soft: rgba(217, 107, 97, .10);
+  --coral-hover: rgba(217, 107, 97, .16);
+
+  /* 旧变量兼容层，避免现有组件在迁移期间失效 */
+  --celadon-50:  var(--neutral-0);
+  --celadon-100: var(--neutral-100);
+  --celadon-200: var(--neutral-200);
+  --celadon-300: var(--neutral-300);
+  --celadon-400: var(--brand-green-300);
+  --celadon-500: var(--brand-green-500);
+  --celadon-600: var(--brand-green-600);
+  --celadon-700: var(--brand-green-700);
+  --celadon-800: var(--brand-green-800);
+  --celadon-900: var(--neutral-900);
+  --celadon-950: var(--neutral-950);
+
+  /* 夜瓷（深色模式用）—— 同色相的亮版 */
+  --night-50:  #e8f2ef;
+  --night-100: #cfe0d8;
+  --night-300: #9dbdb2;
+  --night-400: #7eb8b3;
+  --night-500: #5a9994;
+  --night-600: #469e9c;
+  --night-800: #1a2422;
+  --night-900: #121b19;
+  --night-950: #0b0e0d;     /* 落地页原底色 */
+
+  /* 常用颜色通道，供带透明度的组件状态复用 */
+  --fb-rgb-accent: 74, 157, 145;
+  --fb-rgb-accent-strong: 52, 122, 113;
+  --fb-rgb-night-accent: 126, 184, 179;
+  --fb-rgb-mint: 120, 200, 189;
+  --fb-rgb-celadon-main: 240, 245, 243;
+  --fb-rgb-logo-cool: 240, 253, 251;
+  --fb-rgb-powder-blue: 222, 250, 253;
+  --fb-rgb-powder-blush: 250, 239, 231;
+  --fb-rgb-powder-lemon: 242, 241, 236;
+  --fb-rgb-powder-orchid: 226, 223, 218;
+  --fb-rgb-white: 255, 255, 255;
+  --fb-rgb-black: 0, 0, 0;
+
+  /* 九轴继续作为数据结构，视觉统一为中性单色 */
+  --fb-axis-imaging:     var(--neutral-700);
+  --fb-axis-light:       var(--neutral-700);
+  --fb-axis-lens:        var(--neutral-700);
+  --fb-axis-composition: var(--neutral-700);
+  --fb-axis-hair:        var(--neutral-700);
+  --fb-axis-gaze:        var(--neutral-700);
+  --fb-axis-action:      var(--neutral-700);
+  --fb-axis-wardrobe:    var(--neutral-700);
+  --fb-axis-scene:       var(--neutral-700);
+  --fb-axis-on-soft:     var(--neutral-900);
+  --fb-axis-spectrum: linear-gradient(90deg, var(--neutral-400), var(--neutral-600));
+  --fb-axis-ring: conic-gradient(var(--neutral-600), var(--neutral-300), var(--neutral-600));
+
+  /* 兼容旧编号，同时让业务代码优先使用上面的语义名称 */
+  --axis-1: var(--fb-axis-imaging);
+  --axis-2: var(--fb-axis-light);
+  --axis-3: var(--fb-axis-lens);
+  --axis-4: var(--fb-axis-composition);
+  --axis-5: var(--fb-axis-hair);
+  --axis-6: var(--fb-axis-gaze);
+  --axis-7: var(--fb-axis-action);
+  --axis-8: var(--fb-axis-wardrobe);
+  --axis-9: var(--fb-axis-scene);
+
+  /* 功能色语义层 */
+  --fb-feedback-danger:  #c9564d;
+  --fb-feedback-success: var(--brand-green-600);
+  --fb-feedback-warning: #c28a45;
+  --fb-feedback-info:    #668fa8;
+  --danger:  var(--fb-feedback-danger);
+  --success: var(--fb-feedback-success);
+  --warning: var(--fb-feedback-warning);
+  --info:    var(--fb-feedback-info);
+
+  /* ========== 2. 语义色，浅色模式 ========== */
+  --fb-surface-canvas:   var(--haze-bg-page);
+  --fb-surface-raised:   var(--haze-surface-soft);
+  --fb-surface-sunken:   var(--haze-bg-page-deep);
+  --fb-surface-deep:     #dfded7;
+  --fb-surface-glass:    var(--haze-surface-card);
+
+  --fb-text-primary:     #252421;
+  --fb-text-secondary:   #5a5650;
+  --fb-text-muted:       #7d776f;
+  --fb-text-subtle:      #969087;
+  --fb-text-inverse:     #ffffff;
+
+  --fb-action-primary:       var(--brand-green-600);
+  --fb-action-primary-hover: var(--brand-green-700);
+  --fb-action-primary-strong:var(--brand-green-800);
+  --fb-action-soft:          rgba(var(--fb-rgb-accent), .12);
+  --fb-action-line:          rgba(var(--fb-rgb-accent), .42);
+
+  --fb-border-subtle:    var(--haze-border-soft);
+  --fb-border-strong:    var(--haze-border-strong);
+
+  /* 兼容现有页面的短变量，迁移期继续可用 */
+  --bg:            var(--fb-surface-canvas);
+  --bg-elevated:   var(--fb-surface-raised);
+  --bg-sunken:     var(--fb-surface-sunken);
+  --bg-deep:       var(--fb-surface-deep);
+  --ink:           var(--fb-text-primary);
+  --ink-2:         var(--fb-text-secondary);
+  --ink-3:         var(--fb-text-muted);
+  --ink-4:         var(--fb-text-subtle);
+  --ink-inverse:   var(--fb-text-inverse);
+  --accent:        var(--fb-action-primary);
+  --accent-dark:   var(--fb-action-primary-hover);
+  --accent-deep:   var(--fb-action-primary-strong);
+  --accent-soft:   var(--fb-action-soft);
+  --accent-line:   var(--fb-action-line);
+  --hair:          var(--fb-border-subtle);
+  --hair-strong:   var(--fb-border-strong);
+  --glass:         var(--fb-surface-glass);
+
+  --shadow-color:  42, 41, 38;
+
+  /* 仅供主操作使用的同色相微渐变 */
+  --brand-gradient: linear-gradient(135deg, var(--brand-green-500), var(--brand-green-700));
+
+  /* ========== 3. 字体 ==========
+     西文一律排在中文字体之前 —— 中文字体自带的西文字形通常不理想。
+     --font-brand 与 --font-serif 同族，靠字重（700/900）而非字族区分层级。
+     中文不使用斜体：西文斜体源自手写连笔，中文只能机械倾斜，会破坏字形结构。 */
+  --font-serif: Georgia, "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", "SimSun", serif;
+  --font-sans:  "Plus Jakarta Sans", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  --font-mono:  ui-monospace, "SF Mono", "JetBrains Mono", "Roboto Mono", Menlo, Consolas, monospace;
+  --font-brand: Georgia, "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", "SimSun", serif;
+
+  /* ========== 4. 字号：6 级阶梯 ========== */
+  --fs-display: 22px;    /* 结果区大标题 */
+  --fs-title:   16px;    /* 卡片标题 */
+  --fs-heading: 14px;    /* 模块标题 */
+  --fs-body:    13px;    /* 侧栏正文 / 提示词 */
+  --fs-caption: 11px;    /* 按钮 / 标签 */
+  --fs-micro:   10px;    /* 等宽眉标 / 数据 */
+
+  /* 行高 */
+  --lh-tight:  1.25;
+  --lh-normal: 1.6;
+  --lh-loose:  1.85;     /* 正文与提示词，中文需要更松 */
+
+  /* 字距：标题负字距，小标签正字距 */
+  --tracking-display: -.024em;
+  --tracking-title:   -.016em;
+  --tracking-heading: -.01em;
+  --tracking-body:    0;
+  --tracking-mono:    .15em;
+
+  /* 字重：正文、界面强调、品牌标题 */
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-bold:    700;
+  --weight-black:   900;
+
+  /* ========== 5. 间距：4 的倍数 ========== */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+
+  /* ========== 6. 连续圆角：仅四档 ========== */
+  --radius-control: 12px;
+  --radius-field:   16px;
+  --radius-panel:   24px;
+  --radius-pill:    999px;
+  --r-sm:      var(--radius-control);
+  --r-segment: var(--radius-control);
+  --r-md:      var(--radius-field);
+  --r-lg:      var(--radius-panel);
+  --r-xl:      var(--radius-panel);
+  --r-pill:    var(--radius-pill);
+  --fb-radius-control: var(--r-sm);
+  --fb-radius-card: var(--r-md);
+  --fb-radius-panel: var(--r-lg);
+  --fb-radius-overlay: var(--r-xl);
+  --fb-radius-pill: var(--r-pill);
+  --fb-radius-button: var(--r-segment);
+  --fb-corner-curve-control: round;
+  --fb-corner-curve-card: superellipse(1.12);
+  --fb-corner-curve-panel: superellipse(1.28);
+  --fb-corner-curve-overlay: superellipse(1.38);
+
+  /* ========== 7. 光学薄雾阴影：4 级 ========== */
+  --shadow-xs: 0 2px 8px rgba(var(--shadow-color), .035);
+  --shadow-sm: 0 8px 22px rgba(var(--shadow-color), .05);
+  --shadow-md: 0 14px 36px rgba(var(--shadow-color), .075);
+  --shadow-lg: 0 28px 72px rgba(var(--shadow-color), .12);
+  --sheen-top: inset 0 1px 1px rgba(255, 255, 255, .62);
+  --jelly-shadow: 0 4px 12px rgba(var(--shadow-color), .045), inset 0 1px 0 rgba(255, 255, 255, .68);
+  --jelly-shadow-hover: 0 8px 18px rgba(var(--shadow-color), .065), inset 0 1px 0 rgba(255, 255, 255, .76);
+  --brand-glow: 0 0 0 4px rgba(var(--fb-rgb-accent), .12);
+
+  /* ========== 8. 光学薄雾动效 ========== */
+  --dur-fast: .18s;
+  --dur-slow: .30s;
+  --dur-pill: .24s;
+  --dur-jelly: .24s;
+  --dur-press: .18s;
+  --dur-control: .22s;
+  --dur-panel: .30s;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --ease-spring: var(--ease);
+  --ease-pill: var(--ease);
+  --ease-editorial: var(--ease);
+  --ease-control: var(--ease);
+
+  /* ========== 9. 层级 ========== */
+  --z-base:   0;
+  --z-sticky: 30;   /* 顶栏 */
+  --z-dock:   35;
+  --z-drawer: 40;
+  --z-modal:  50;
+  --z-toast:  60;
+
+  /* ========== 10. 可访问性 ========== */
+  --tap-min: 36px;                 /* 最小触摸目标（Apple 建议 44px，侧栏空间紧取 36） */
+  --tap-comfortable: 40px;         /* 主操作 */
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+  --focus-outline: 2px solid var(--accent-dark);
+  --focus-offset: 2px;
+
+  /* ========== 11. 组件层 ========== */
+  --fb-control-height-sm: 32px;
+  --fb-control-height-md: var(--tap-min);
+  --fb-control-height-lg: var(--tap-comfortable);
+  --fb-control-radius: var(--fb-radius-control);
+  --fb-control-bg: var(--bg-elevated);
+  --fb-control-bg-hover: var(--bg-sunken);
+  --fb-control-bg-active: var(--accent-soft);
+  --fb-control-bg-disabled: var(--bg-sunken);
+  --fb-control-border: var(--hair-strong);
+  --fb-control-border-focus: var(--accent-line);
+  --fb-control-text: var(--ink);
+  --fb-control-text-muted: var(--ink-3);
+  --fb-control-disabled-opacity: .48;
+  --fb-card-bg: var(--bg-elevated);
+  --fb-card-border: var(--hair);
+  --fb-card-radius: var(--fb-radius-panel);
+  --fb-card-shadow: var(--shadow-md);
+  --fb-button-primary-bg: var(--accent-dark);
+  --fb-button-primary-bg-hover: var(--accent-deep);
+  --fb-button-primary-text: var(--ink-inverse);
+  --fb-button-secondary-bg: var(--fb-control-bg);
+  --fb-button-secondary-bg-hover: var(--fb-control-bg-hover);
+  --fb-button-secondary-text: var(--ink);
+  --fb-selected-bg: var(--accent-soft);
+  --fb-selected-border: var(--accent-line);
+  --fb-overlay-backdrop: rgba(11, 19, 17, .72);
+
+  /* 密度别名：网页默认舒适，扩展侧栏显式使用 compact */
+  --fb-density-control-height: var(--fb-control-height-lg);
+  --fb-density-card-padding: var(--sp-5);
+  --fb-density-section-gap: var(--sp-6);
+  --fb-density-body-size: 15px;
+  --fb-density-caption-size: 12px;
+  --fb-density-micro-size: 11px;
+
+  /* ========== 12. 布局 ========== */
+  --shell: 1500px;                          /* 网站内容最大宽度 */
+  --pad: clamp(1.1rem, 4vw, 3.2rem);        /* 页面左右留白 */
+  --sidebar-width: 400px;                   /* 扩展侧栏宽度 */
+}
+
+[data-density="compact"] {
+  --fb-density-control-height: var(--fb-control-height-md);
+  --fb-density-card-padding: var(--sp-3);
+  --fb-density-section-gap: var(--sp-3);
+  --fb-density-body-size: var(--fs-body);
+  --fb-density-caption-size: var(--fs-caption);
+  --fb-density-micro-size: var(--fs-micro);
+}
+
+[data-density="comfortable"] {
+  --fb-density-control-height: var(--fb-control-height-lg);
+  --fb-density-card-padding: var(--sp-5);
+  --fb-density-section-gap: var(--sp-6);
+  --fb-density-body-size: 15px;
+  --fb-density-caption-size: 12px;
+  --fb-density-micro-size: 11px;
+}
+
+/* ========== 深色模式：夜瓷 ========== */
+[data-theme="night"] {
+  color-scheme: dark;
+  --fb-surface-canvas:   var(--night-950);
+  --fb-surface-raised:   var(--night-900);
+  --fb-surface-sunken:   var(--night-800);
+  --fb-surface-deep:     #0f1614;
+  --fb-surface-glass:    rgba(18, 27, 25, .78);
+
+  --fb-text-primary:     var(--night-50);
+  --fb-text-secondary:   #c3d2ce;
+  --fb-text-muted:       #9fb1ad;
+  --fb-text-subtle:      #81938f;
+  --fb-text-inverse:     var(--night-950);
+
+  --fb-action-primary:       var(--night-400);
+  --fb-action-primary-hover: var(--night-300);
+  --fb-action-primary-strong:var(--night-100);
+  --fb-action-soft:          rgba(126, 184, 179, .16);
+  --fb-action-line:          rgba(126, 184, 179, .44);
+
+  --fb-border-subtle:    rgba(255, 255, 255, .09);
+  --fb-border-strong:    rgba(255, 255, 255, .16);
+
+  --shadow-color: 0, 0, 0;
+
+  --fb-feedback-danger:  #d98b7e;
+  --fb-feedback-success: #7fb894;
+  --fb-feedback-warning: #c2a05c;
+  --fb-feedback-info:    var(--night-400);
+}
+
+/* ========== 减少动效偏好 ========== */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0s;
+    --dur-slow: 0s;
+  }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+@media (pointer: coarse) {
+  :root {
+    --tap-min: 44px;
+    --tap-comfortable: 44px;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --fb-text-muted: var(--celadon-800);
+    --fb-text-subtle: var(--celadon-700);
+    --fb-border-subtle: rgba(38, 68, 62, .24);
+    --fb-border-strong: rgba(38, 68, 62, .4);
+  }
+  [data-theme="night"] {
+    --fb-text-muted: var(--night-100);
+    --fb-text-subtle: var(--night-300);
+    --fb-border-subtle: rgba(255, 255, 255, .26);
+    --fb-border-strong: rgba(255, 255, 255, .42);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root { --fb-surface-glass: var(--fb-surface-raised); }
+}
+
+@media (forced-colors: active) {
+  :root {
+    --focus-outline: 2px solid Highlight;
+    --focus-offset: 2px;
+  }
+}
+
+/* 3.1 共享组件参数 */
+:root {
+  --qg-page: var(--fb-surface-canvas);
+  --qg-page-deep: var(--fb-surface-sunken);
+  --qg-surface: rgba(255, 255, 255, .46);
+  --qg-surface-strong: rgba(255, 255, 255, .64);
+  --qg-text: var(--fb-text-primary);
+  --qg-text-2: var(--fb-text-secondary);
+  --qg-text-3: var(--fb-text-muted);
+  --qg-brand: var(--fb-action-primary);
+  --qg-brand-deep: var(--fb-action-primary-strong);
+  --qg-brand-soft: rgba(74, 157, 145, .10);
+  --qg-brand-line: rgba(74, 157, 145, .24);
+  --qg-accent: #d96b61;
+  --qg-hairline: rgba(37, 36, 33, .075);
+  --qg-highlight: rgba(255, 255, 255, .54);
+  --qg-r-control: var(--radius-control);
+  --qg-r-field: var(--radius-field);
+  --qg-r-panel: var(--radius-panel);
+  --qg-r-pill: var(--radius-pill);
+  --qg-switch-width: 34px;
+  --qg-switch-height: 20px;
+  --qg-switch-thumb: 14px;
+  --qg-switch-inset: 3px;
+  --qg-switch-travel: 14px;
+  --qg-ease: cubic-bezier(.22, .61, .36, 1);
+  --qg-fast: 180ms;
+  --qg-normal: 220ms;
+  --qg-slow: 300ms;
+  --qg-shadow-control: 0 4px 12px rgba(37, 36, 33, .032);
+  --qg-shadow-card: 0 12px 34px rgba(37, 36, 33, .045);
+  --qg-shadow-float: 0 24px 64px rgba(37, 36, 33, .09);
+  --qg-focus: 0 0 0 3px rgba(74, 157, 145, .07), 0 8px 22px rgba(74, 157, 145, .045);
+}
+:root {
+ --fb-type-display:clamp(2.75rem,5vw,4.5rem);--fb-type-section:clamp(1.75rem,3vw,2.5rem);
+ --fb-type-body:1rem;--fb-type-label:.875rem;--fb-type-meta:.75rem;
+ --fb-action-emphasis-bg:#347a71;--fb-action-emphasis-text:#fff;--fb-action-emphasis-hover:#286158;
+ --qg-ambient-bg:linear-gradient(180deg,#f6f5f2,var(--qg-page) 54%,var(--qg-page-deep));
+}
+[data-theme="night"] {
+ --qg-surface:var(--fb-surface-raised);--qg-surface-strong:var(--fb-surface-glass);
+ --qg-hairline:var(--fb-border-subtle);--qg-brand-soft:var(--fb-action-soft);--qg-brand-line:var(--fb-action-line);
+ --qg-highlight:rgba(255,255,255,.06);
+ --qg-ambient-bg:linear-gradient(180deg,var(--fb-surface-canvas),var(--fb-surface-sunken));
+ --fb-action-emphasis-bg:#7eb8b3;--fb-action-emphasis-text:#0b0e0d;--fb-action-emphasis-hover:#9dbdb2;
+}

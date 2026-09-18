@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="zh-CN" data-density="compact">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F·BASE</title>
+    <link rel="stylesheet" href="design-tokens.css">
+    <link rel="stylesheet" href="sidepanel.css">
+  <link rel="stylesheet" href="quiet-gel-components.css">
+<link rel="stylesheet" href="ux-refinements.css">
+</head>
+  <body>
+    <div class="shell studio-shell">
+      <header class="topbar studio-head">
+        <div class="brand-mark"><img src="f-logo.png" alt=""></div>
+        <div class="brand-copy"><strong>F·BASE</strong></div>
+        <div class="studio-head-actions">
+          <button class="button head-queue" id="queueDrawerButton" title="任务队列" aria-label="任务队列" aria-expanded="false" aria-controls="queueDrawer">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="7" height="7" rx="1.5"></rect><rect x="14" y="4" width="7" height="7" rx="1.5"></rect><rect x="3" y="15" width="7" height="7" rx="1.5"></rect><rect x="14" y="15" width="7" height="7" rx="1.5"></rect></svg>
+            <span class="head-queue-text">任务</span>
+            <span class="head-queue-count" id="queueBadge">0</span>
+          </button>
+          <button class="button head-library" id="openLibraryButton" title="打开词库" aria-label="打开词库">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            <span class="head-library-text">打开词库</span>
+          </button>
+          <button class="button head-runtime" id="runtimeDrawerButton" title="运行设置" aria-label="运行设置" aria-expanded="false" aria-controls="runtimeDrawer">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <span class="head-runtime-text">设置</span>
+          </button>
+        </div>
+      </header>
+      <div class="queue-drawer" id="queueDrawer" hidden>
+        <section class="history-card queue-card" aria-labelledby="historyTitle">
+          <div class="queue-top">
+            <div class="queue-copy">
+              <span class="eyebrow">TASK QUEUE</span>
+              <strong id="historyTitle">任务队列</strong>
+              <small id="queueStats">0 个任务 · 0 个运行中 · 0 个已完成</small>
+            </div>
+            <div class="queue-actions">
+              <button class="button secondary" type="button" id="runQueueButton">批量运行</button>
+              <button class="ui-icon-tile queue-clear" type="button" id="clearHistoryButton" title="清理完成任务" aria-label="清理完成任务">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path></svg>
+              </button>
+              <input id="sourceFileInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif,image/avif" multiple>
+            </div>
+          </div>
+          <div class="task-strip">
+            <p class="history-empty" id="historyEmpty"><span class="history-empty-mark" aria-hidden="true"></span><span>完成一次视觉反推后，任务缩略图会显示在这里。</span></p>
+            <div class="history-list task-strip-list" id="historyList"></div>
+          </div>
+        </section>
+      </div>
+      <div class="queue-drawer runtime-drawer" id="runtimeDrawer" hidden>
+        <section class="history-card queue-card" aria-labelledby="runtimeDrawerTitle">
+          <div class="queue-top">
+            <div class="queue-copy">
+              <span class="eyebrow">RUNTIME</span>
+              <strong id="runtimeDrawerTitle">运行设置</strong>
+              <small>画幅 · 精度 · 输出开关</small>
+            </div>
+            <div class="queue-actions">
+              <button class="button secondary runtime-config-button" type="button" id="settingsButton" title="接口与模型配置">接口配置</button>
+              <button class="ui-icon-tile queue-clear" type="button" id="closeRuntimeDrawerButton" title="关闭" aria-label="关闭运行设置">×</button>
+            </div>
+          </div>
+          <div class="runtime-settings-panel" id="runtimeSettingsPanel">
+            <div class="runtime-block runtime-core-block">
+              <div class="runtime-control-group">
+                <div class="runtime-label"><span>默认画幅</span><small id="runtimeAspectLabel">AUTO</small></div>
+                <div class="runtime-aspect-grid" id="runtimeAspects"></div>
+              </div>
+              <div class="runtime-control-group">
+                <div class="runtime-label"><span>提示词精度</span><small id="runtimeDetailLabel">标准</small></div>
+                <div class="runtime-detail-grid" id="runtimeDetails"></div>
+              </div>
+            </div>
+            <details class="runtime-advanced"><summary><span>继续创作与风格</span><small>做一组、试方向、换感觉</small><i aria-hidden="true"></i></summary>
+            <div class="runtime-asset-grid">
+              <div class="runtime-block runtime-select-block">
+                <span class="runtime-label"><span>接下来想做什么</span><small id="runtimeXiezhenTemplateLabel">直接给提示词</small></span>
+                <div class="runtime-choice-picker" id="runtimeXiezhenTemplatePicker">
+                  <button class="runtime-choice-trigger" type="button" id="runtimeXiezhenTemplateButton" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="runtime-choice-current"><strong id="runtimeXiezhenTemplateCurrent">直接给提示词</strong><small id="runtimeXiezhenTemplateDescription">复制就能用，复杂画面按需保留细节</small></span>
+                    <span class="ui-caret" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                  </button>
+                  <div class="runtime-choice-options" id="runtimeXiezhenTemplateOptions" role="listbox" hidden></div>
+                </div>
+              </div>
+              <div class="runtime-block runtime-select-block">
+                <span class="runtime-label"><span>画面感觉</span><small id="runtimeAestheticPresetLabel">保持原图感觉</small></span>
+                <div class="runtime-choice-picker" id="runtimeAestheticPresetPicker">
+                  <button class="runtime-choice-trigger" type="button" id="runtimeAestheticPresetButton" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="runtime-choice-current"><strong id="runtimeAestheticPresetCurrent">保持原图感觉</strong><small id="runtimeAestheticPresetDescription">沿用参考图的光线、色彩和质感</small></span>
+                    <span class="ui-caret" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                  </button>
+                  <div class="runtime-choice-options" id="runtimeAestheticPresetOptions" role="listbox" hidden></div>
+                </div>
+              </div>
+            </div>
+            </details>
+            <details class="runtime-advanced">
+              <summary><span>更多设置</span><small>模型、并发与功能开关</small><i aria-hidden="true"></i></summary>
+              <div class="runtime-advanced-body">
+                <div class="runtime-block" id="runtimeImageModelBlock" hidden>
+                  <div class="runtime-label"><span>生图模型</span><small id="runtimeImageModelLabel"></small></div>
+                  <div class="runtime-model-picker" id="runtimeImageModelPicker">
+                    <button class="runtime-model-trigger" type="button" id="runtimeImageModelButton" aria-haspopup="listbox" aria-expanded="false"><span id="runtimeImageModelCurrent">选择生图模型</span><span class="ui-caret" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
+                    <div class="runtime-model-options" id="runtimeImageModelOptions" role="listbox" hidden></div>
+                  </div>
+                </div>
+                <div class="runtime-block runtime-concurrency">
+                  <div class="runtime-label"><span>并发任务数</span><small id="runtimeConcurrencyLabel">3 个同时</small></div>
+                  <div class="runtime-concurrency-stepper">
+                    <button type="button" class="runtime-stepper-btn" data-concurrency-delta="-1" aria-label="减少并发任务数">−</button>
+                    <span class="runtime-concurrency-value"><b id="runtimeConcurrencyValue">3</b><small>任务</small></span>
+                    <button type="button" class="runtime-stepper-btn" data-concurrency-delta="1" aria-label="增加并发任务数">+</button>
+                  </div>
+                </div>
+                <div class="runtime-block runtime-toggles">
+                  <label class="runtime-toggle runtime-toggle-wide"><span class="runtime-toggle-copy"><strong>人物保真</strong><small>锁定五官、身形比例、自拍透视与妆容</small></span><input type="checkbox" id="runtimePortraitFidelityToggle" data-runtime-toggle="portraitFidelity"><i></i></label>
+                  <label class="runtime-toggle"><span class="runtime-toggle-copy"><strong>输出变体</strong><small>生成同风格变体提示词</small></span><input type="checkbox" id="runtimeVariantToggle" data-runtime-toggle="outputVariant"><i></i></label>
+                  <label class="runtime-toggle"><span class="runtime-toggle-copy"><strong>图片检索</strong><small>显示网页图片拾取按钮</small></span><input type="checkbox" id="runtimeInspectToggle" data-runtime-toggle="inspectButton"><i></i></label>
+                  <label class="runtime-toggle"><span class="runtime-toggle-copy"><strong>色卡模式</strong><small>提取确定性参考色卡</small></span><input type="checkbox" id="runtimeColorCardToggle" data-runtime-toggle="colorCardMode"><i></i></label>
+                  <label class="runtime-toggle"><span class="runtime-toggle-copy"><strong>参考色卡</strong><small>生成时携带当前色彩关系</small></span><input type="checkbox" id="runtimeReferencePaletteToggle" data-runtime-toggle="referencePalette"><i></i></label>
+                  <label class="runtime-toggle runtime-toggle-wide"><span class="runtime-toggle-copy"><strong>动作参考</strong><small>强化重心、关节、手势与接触关系</small></span><input type="checkbox" id="runtimeActionReferenceToggle" data-runtime-toggle="actionReferenceMode"><i></i></label>
+                </div>
+                <p class="runtime-hint">修改后会实时同步，并在下一次反推时生效。</p>
+              </div>
+            </details>
+          </div>
+        </section>
+      </div>
+
+
+      <nav class="result-jump-bar" id="resultJumpBar" hidden aria-label="结果区快速跳转">
+        <div class="task-context-switcher" role="group" aria-label="任务切换">
+          <button class="task-cycle-button" type="button" id="previousTaskButton" title="上一个任务" aria-label="上一个任务">‹</button>
+          <button class="task-switcher-button" type="button" id="taskSwitcherButton" aria-expanded="false" aria-controls="queueDrawer" title="打开任务队列">
+            <span id="taskSwitcherLabel">当前任务</span>
+            <small id="taskSwitcherState">0 个任务</small>
+          </button>
+          <button class="task-cycle-button" type="button" id="nextTaskButton" title="下一个任务" aria-label="下一个任务">›</button>
+        </div>
+        <div class="result-jump-sections" aria-label="结果内容导航">
+          <button class="result-jump" type="button" data-jump-target="promptModeSwitcher">提示词</button>
+          <button class="result-jump" type="button" data-jump-target="generationTuningPanel">生图调整</button>
+          <button class="result-jump" type="button" data-jump-target="paletteSection">色卡</button>
+          <button class="result-jump" type="button" data-jump-target="breakdownModule">画面解构</button>
+        </div>
+      </nav>
+
+      <main class="studio-main">
+
+        <div class="workspace-label">当前任务</div>
+        <section class="source-card task-card" id="taskWorkspace">
+          <div class="task-head">
+            <div class="task-head-copy">
+              <span class="task-index">任务</span>
+              <div><strong>视觉反推任务</strong><small>添加素材后开始反推</small></div>
+            </div>
+            <div class="task-head-actions"><button class="button secondary hidden" id="retryButton" disabled>重试</button><span class="source-state" id="sourceState">等待素材</span></div>
+          </div>
+          <div class="task-badges">
+            <span>反推模型 <b id="modelName">尚未配置</b></span>
+          </div>
+
+          <section class="task-module source-module is-empty" id="sourceModule">
+            <div class="task-module-head" data-module-toggle aria-expanded="true"><div><span>原始素材</span><small>网页图片或本机图片</small></div></div>
+            <div class="task-module-body source-module-body">
+              <div class="preview-wrap is-upload-target" id="previewWrap" role="button" tabindex="0" aria-label="选择要反推的参考图片">
+                <div class="source-main-preview"><img id="sourcePreview" alt="当前参考图"><div class="preview-shade"></div><div class="source-meta" id="sourceMeta"></div></div>
+                <div class="empty-preview" id="emptyPreview"><span class="empty-icon brand-node" aria-hidden="true">F</span><strong>添加参考图片</strong><small>点击此区域上传，也可使用下方方式</small></div>
+                <button class="ui-icon-tile preview-clear" id="clearImageButton" type="button" title="清除图片" aria-label="清除图片" disabled>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+              </div>
+              <div class="source-actions"><label class="button primary file-button upload-primary" for="sourceFileInput"><span>上传图片</span></label><button class="button secondary source-utility" id="pickButton">网页点选</button><button class="button secondary source-utility" id="pasteImageButton">粘贴图片</button></div>
+            </div>
+          </section>
+
+          <section class="task-module prompt-input-module">
+            <div class="task-module-head" data-module-toggle aria-expanded="true"><div><span>想怎么调整</span><small>可选</small></div></div>
+            <div class="task-module-body"><label class="field prompt-field"><textarea id="promptInput" rows="3" placeholder="留空直接反推，或说：明亮柔和一点、按这个感觉再来三张、试三个方向。"></textarea></label></div>
+          </section>
+
+          <div class="task-run-actions">
+            <button class="button primary full action-button" id="analyzeImportButton"><span class="ui-icon-spark" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg></span><span id="analyzeImportLabel">选择图片后开始反推</span></button>
+            <label class="generate-toggle" for="generateAfterReverseToggle" title="勾选后，反推完成会自动用反推提示词生成图像"><input type="checkbox" id="generateAfterReverseToggle"><span>反推后自动生成图像</span></label>
+          </div>
+          <div class="task-footline"><p class="flow-note">视觉反推完成后自动写入词库，画面解构中的语义片段会直接保存为原子词。</p><span class="service-state checking" id="serviceState" title="后端连接状态"><i></i><span>后端检测中</span></span></div>
+          <div class="status hidden" id="statusBar" role="status" aria-live="polite"><i></i><span id="statusText"></span></div>
+        </section>
+
+        <section class="import-card task-card result-workspace" id="resultWorkspace">
+          <div class="result-card hidden" id="resultCard">
+            <div class="result-top task-result-head"><div><span class="eyebrow" id="resultEyebrow">REVERSE READY</span><strong id="resultHeadline">反推结果已生成</strong></div><span class="result-count" id="resultCount">0</span></div>
+            <p id="resultSummary"></p><div class="reverse-meta" id="resultMeta"></div>
+
+            <section class="task-module generated-result-module hidden" id="generatedResultModule">
+              <div class="task-module-head" data-module-toggle><div><strong>生成结果</strong><small id="generatedResultMeta">等待生成</small></div><div class="result-image-actions"><button type="button" id="downloadGeneratedButton">下载</button><button type="button" id="favoriteGeneratedButton">收藏</button><button type="button" id="saveEagleButton">Eagle</button></div></div>
+              <div class="task-module-body">
+                <div class="result-view-switch" role="group" aria-label="结果预览模式"><button type="button" class="active" data-result-view="result">结果</button><button type="button" data-result-view="original">原图</button><button type="button" data-result-view="compare">对比</button></div>
+                <div class="result-image-stage" id="resultImageStage" data-view="result"><figure class="result-image-original"><img id="resultOriginalImage" alt="原始参考图"><figcaption>原图 <button type="button" class="result-expand-source" id="expandSourceFromResult">展开原素材</button></figcaption></figure><figure class="result-image-generated"><img id="generatedImage" alt="生成结果"><figcaption>生成结果</figcaption></figure></div>
+                <div class="generated-request-prompt hidden" id="generatedRequestPromptPanel">
+                  <button class="generated-request-prompt-toggle" type="button" id="generatedRequestPromptToggle" aria-expanded="false">
+                    <span><strong>实际发送提示词</strong><small id="generatedRequestPromptMeta">本次生图完整请求</small></span>
+                    <i class="ui-caret" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></i>
+                  </button>
+                  <div class="generated-request-prompt-body" id="generatedRequestPromptBody" hidden>
+                    <div class="generated-request-prompt-text" id="generatedRequestPromptText"></div>
+                    <div class="generated-request-prompt-actions"><button type="button" id="copyGeneratedRequestPromptButton">复制实际提示词</button></div>
+                  </div>
+                </div>
+                <div class="generation-feedback" id="generationFeedback">
+                  <div class="generation-feedback-head"><span>结果反馈</span><small id="generationFeedbackStatus">本机记录，用于后续优化</small></div>
+                  <div class="generation-feedback-options" id="generationFeedbackOptions">
+                    <button type="button" data-generation-feedback="matched">接近原图</button>
+                    <button type="button" data-generation-feedback="texture">质感偏差</button>
+                    <button type="button" data-generation-feedback="composition">构图偏差</button>
+                    <button type="button" data-generation-feedback="subject">主体偏差</button>
+                    <button type="button" data-generation-feedback="color">色彩偏差</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="task-module prompt-mode-switcher" id="promptModeSwitcher">
+              <div class="task-module-head"><div><strong>生图提示词</strong><small>完整档案已保留，默认显示精简生成稿</small></div></div>
+              <div class="prompt-mode-tabs" id="promptModeTabs" role="tablist" aria-label="提示词类型">
+                <button type="button" class="active" data-prompt-mode="reverse" role="tab">还原</button>
+                <button type="button" data-prompt-mode="xiezhen" role="tab">写真</button>
+                <button type="button" data-prompt-mode="variant" role="tab">变体</button>
+              </div>
+            </section>
+
+            <section class="task-module reverse-prompt-card" id="reversePromptCard" data-prompt-panel="reverse">
+              <div class="reverse-prompt-head task-module-head" data-module-toggle><strong>提示词</strong><div class="prompt-card-actions"><button type="button" id="previewReverseGenerationPromptButton" title="查看本次实际发送给生图模型的完整提示词">发送预览</button><button type="button" id="generateFromReverseButton" title="用当前提示词直接生成图像">生成</button><button type="button" id="editReversePromptButton">编辑</button><button type="button" id="favoritePromptButton" aria-pressed="false">收藏</button><button type="button" id="copyReversePromptButton">复制</button></div></div>
+              <div class="task-module-body">
+                <div class="reverse-prompt" id="reversePrompt"></div>
+              </div>
+            </section>
+
+            <section class="task-module reverse-prompt-card xiezhen-prompt-card hidden" id="xiezhenPromptCard" data-prompt-panel="xiezhen">
+              <div class="reverse-prompt-head task-module-head" data-module-toggle>
+                <div><strong id="xiezhenPromptTitle">写真调整提示词</strong><small id="xiezhenPromptMeta"></small></div>
+                <div class="prompt-card-actions"><button type="button" id="previewXiezhenGenerationPromptButton" title="查看本次实际发送给生图模型的完整提示词">发送预览</button><button type="button" id="generateFromXiezhenButton" title="用写真调整提示词生成图像">生成</button><button type="button" id="editXiezhenPromptButton">编辑</button><button type="button" id="favoriteXiezhenButton" aria-pressed="false">收藏</button><button type="button" id="copyXiezhenPromptButton">复制</button></div>
+              </div>
+              <div class="task-module-body"><div class="reverse-prompt" id="xiezhenPrompt"></div></div>
+            </section>
+
+            <section class="task-module reverse-prompt-card variant-prompt-card hidden" id="variantPromptCard" data-prompt-panel="variant"><div class="reverse-prompt-head task-module-head" data-module-toggle><strong>同风格变体提示词</strong><div class="prompt-card-actions"><button type="button" id="editVariantPromptButton">编辑</button><button type="button" id="favoriteVariantButton" aria-pressed="false">收藏</button><button type="button" id="copyVariantPromptButton">复制</button></div></div><div class="task-module-body"><div class="reverse-prompt" id="variantPrompt"></div></div></section>
+
+            <div class="result-action-dock" id="resultActionDock">
+              <button type="button" class="dock-primary" id="resultDockGenerateButton">生成</button>
+              <button type="button" id="resultDockCopyButton">复制提示词</button>
+              <button type="button" id="resultDockFavoriteButton">存档案</button>
+              <button type="button" class="dock-icon-button" id="resultDockEditButton" title="编辑当前提示词" aria-label="编辑当前提示词"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg></button>
+            </div>
+
+            <section class="task-module generation-tuning-panel" id="generationTuningPanel">
+              <div class="task-module-head" data-module-toggle><div><strong>生图调整</strong><small>作用于当前选中的还原、写真或变体提示词</small></div></div>
+              <div class="task-module-body">
+                <div class="result-generation-control result-generation-style">
+                  <button class="result-generation-control-toggle" type="button" id="resultGenerationStyleToggle" aria-expanded="true">
+                    <span>生图风格调整</span><span><small id="resultGenerationStyleLabel">未选择</small><i class="ui-caret" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></i></span>
+                  </button>
+                  <div class="result-generation-control-body" id="resultGenerationStyleBody">
+                    <div class="result-generation-style-grid" id="resultGenerationStyles" aria-label="当前任务的生图风格调整词"></div>
+                    <div class="result-generation-style-preview">
+                      <p id="resultGenerationStylePreview">反推完成后可自由勾选，生成或重新生成时追加到当前任务。</p>
+                      <div class="result-generation-style-actions"><button type="button" id="resultGenerationStyleClear">清空</button></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="result-generation-control result-generation-image-control">
+                  <button class="result-generation-control-toggle" type="button" id="resultGenerationImageToggle" aria-expanded="true">
+                    <span>镜头与质感调整</span><span><small id="resultGenerationImageLabel">未选择</small><i class="ui-caret" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></i></span>
+                  </button>
+                  <div class="result-generation-control-body" id="resultGenerationImageBody">
+                    <div class="result-generation-style-grid" id="resultGenerationImageControls" aria-label="当前任务的镜头与质感调整词"></div>
+                    <div class="result-generation-style-preview">
+                      <p id="resultGenerationImagePreview">可自由组合镜头、皮肤、光线、胶片与传播质感。</p>
+                      <div class="result-generation-style-actions"><button type="button" id="resultGenerationImageClear">清空</button></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="result-generation-copy-row"><span>当前提示词 + 已选风格 + 镜头质感</span><button type="button" id="copyPromptWithGenerationStyleButton">一键复制</button></div>
+              </div>
+            </section>
+
+            <section class="task-module visual-archive-switcher">
+              <div class="task-module-head"><div><strong>视觉档案</strong><small>解构、色卡与收藏工具</small></div><button class="task-head-action assistant-launch-button" type="button" id="resultAssistantButton">小助手</button></div>
+              <div class="visual-archive-tabs" id="visualArchiveTabs" role="tablist" aria-label="视觉档案类型">
+                <button type="button" class="active" data-archive-mode="breakdown" role="tab">画面解构</button>
+                <button type="button" data-archive-mode="palette" role="tab">参考色卡</button>
+              </div>
+            </section>
+
+            <section class="palette-section task-module is-collapsed" id="paletteSection">
+              <div class="palette-title task-module-head" data-module-toggle aria-expanded="false"><div><strong>参考色卡</strong><small>颜色比例与画面职能</small></div></div>
+              <div class="palette-module-body task-module-body">
+                <div class="palette-control-row">
+                  <button class="palette-reference-control" type="button" id="paletteReferenceButton">
+                    <span>生成时参考色卡</span><span class="palette-strip" id="paletteStrip"></span><strong id="paletteCount">0 色</strong>
+                  </button>
+                  <button class="palette-favorite-button" type="button" id="favoritePaletteButton">收藏</button>
+                </div>
+                <div class="palette-subhead"><small>跟随全局</small><button type="button" id="copyPaletteButton">复制全部</button></div>
+                <div class="palette palette-detail-list" id="paletteList"></div>
+              </div>
+            </section>
+
+            <section class="task-module breakdown-module is-collapsed" id="breakdownModule">
+              <div class="task-module-head" data-module-toggle aria-expanded="false"><div><span>画面解构</span><small id="breakdownVisibleCount"></small></div><button type="button" id="favoriteAllButton">全部收藏 (0)</button></div>
+              <div class="task-module-body breakdown-module-body">
+                <div class="breakdown-toolbar"><div class="breakdown-search-wrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg><input id="breakdownSearch" type="search" placeholder="搜索拆解维度或内容"></div><button type="button" id="breakdownExpandButton">收藏当前列表</button></div>
+                <div class="breakdown-filters" id="breakdownFilters"></div><div class="reverse-sections" id="reverseSections"></div><p class="breakdown-hint">提示：划选任意文字片段，可直接收藏为自定义词条。</p>
+              </div>
+            </section>
+
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <button class="selection-favorite hidden" type="button" id="selectionFavoriteButton">收藏选中文字</button>
+
+    <div class="result-lightbox hidden" id="resultLightbox" role="dialog" aria-modal="true" aria-label="图片预览与解构">
+      <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+      <div class="lightbox-frame">
+        <div class="lightbox-header">
+          <div class="lightbox-view-switch" role="group" aria-label="预览模式"><button type="button" class="active" data-lb-view="result">结果</button><button type="button" data-lb-view="original">原图</button><button type="button" data-lb-view="compare">对比</button></div>
+          <div class="lightbox-header-actions">
+            <div class="lightbox-zoom-controls" role="group" aria-label="图片缩放"><button type="button" id="lightboxZoomOut" aria-label="缩小">−</button><button type="button" id="lightboxZoomReset" title="复位缩放">100%</button><button type="button" id="lightboxZoomIn" aria-label="放大">+</button></div>
+            <button type="button" class="lightbox-close" id="lightboxCloseButton" aria-label="关闭预览">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+        </div>
+        <div class="lightbox-body">
+          <div class="lightbox-stage" id="lightboxStage">
+            <div class="lightbox-image-wrap" id="lightboxImageWrap" data-lb-view="result">
+              <img id="lightboxGenerated" alt="生成结果大图">
+              <img id="lightboxOriginal" alt="原始参考图大图" class="hidden">
+            </div>
+            <div class="lightbox-hint">点击选择单张图片 · 滚轮缩放 · 拖动平移 · 双击复位</div>
+          </div>
+          <aside class="lightbox-breakdown" id="lightboxBreakdown">
+            <div class="lightbox-breakdown-head"><strong>画面解构</strong></div>
+            <div class="lightbox-breakdown-body" id="lightboxBreakdownBody"></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <dialog class="generation-prompt-dialog" id="generationPromptDialog">
+      <div class="dialog-head generation-prompt-dialog-head">
+        <div><span class="eyebrow">GENERATION REQUEST</span><h2>实际发送提示词</h2><small id="generationPromptPreviewMeta">包含当前勾选的风格、镜头、画幅、色卡与明暗锚点</small></div>
+        <button class="ui-icon-tile tile-ghost" id="generationPromptCloseButton" type="button" aria-label="关闭">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="generation-prompt-preview" id="generationPromptPreviewText"></div>
+      <div class="dialog-actions generation-prompt-dialog-actions"><button class="button primary full" type="button" id="copyGenerationPromptPreviewButton">复制完整发送内容</button></div>
+    </dialog>
+
+    <dialog class="result-assistant-dialog" id="resultAssistantDialog">
+      <form method="dialog">
+        <div class="dialog-head result-assistant-head">
+          <div><span class="eyebrow">F·BASE ASSISTANT</span><h2>调整一下 · 继续创作</h2><p id="resultAssistantMeta">处理当前提示词，不重新分析图片</p></div>
+          <button class="icon-button" type="button" id="resultAssistantCloseButton" aria-label="关闭">×</button>
+        </div>
+        <div id="resultAssistantActions" aria-label="接下来想做什么">
+          <div class="assistant-action-grid">
+            <button type="button" class="active" data-assistant-action="local"><strong>调整一下</strong><small>直接说想怎么改</small></button>
+            <button type="button" data-assistant-action="series_variant"><strong>继续做一组</strong><small>延续风格，换动作场景</small></button>
+          </div>
+          <details class="runtime-advanced">
+            <summary><span>更多创作与修正</span><small>保存感觉、试方向、修细节</small><i aria-hidden="true"></i></summary>
+            <div class="assistant-action-grid">
+              <button type="button" data-assistant-action="series_master"><strong>保持这个感觉</strong><small>提炼可复制系列设定</small></button>
+              <button type="button" data-assistant-action="lottery"><strong>试三个方向</strong><small>选好后再细化</small></button>
+              <button type="button" data-assistant-action="compact"><strong>精简一点</strong><small>去重与整理</small></button>
+              <button type="button" data-assistant-action="faithful"><strong>更贴近参考</strong><small>补回关键特征</small></button>
+              <button type="button" data-assistant-action="texture"><strong>修正质感</strong><small>媒介与光感</small></button>
+              <button type="button" data-assistant-action="audit"><strong>检查提示词</strong><small>冲突与遗漏</small></button>
+            </div>
+          </details>
+        </div>
+        <label class="field assistant-instruction-field">
+          <span>补充要求</span>
+          <textarea id="resultAssistantInstruction" rows="3" placeholder="例如：明亮柔和一点；再来三张，换不同动作；保持这个感觉。"></textarea>
+          <small>调整时写一句要求；继续做一组默认三张，可指定数量。</small>
+        </label>
+        <section class="assistant-current-card">
+          <div><strong>当前版本</strong><small id="resultAssistantCurrentLabel">还原提示词</small></div>
+          <p id="resultAssistantCurrentPrompt"></p>
+        </section>
+        <div class="assistant-run-row">
+          <button class="button primary full" type="button" id="runResultAssistantButton">生成调整稿</button>
+          <span class="assistant-status" id="resultAssistantStatus" role="status" aria-live="polite"></span>
+        </div>
+        <section class="assistant-output-card hidden" id="resultAssistantOutput">
+          <div class="assistant-output-head"><div><strong>调整稿预览</strong><small id="resultAssistantSummary"></small></div><button type="button" id="copyResultAssistantButton">复制</button></div>
+          <p id="resultAssistantPrompt"></p>
+          <div class="assistant-change-list" id="resultAssistantChanges"></div>
+          <button class="button primary full" type="button" id="applyResultAssistantButton">应用为新版本</button>
+        </section>
+        <section class="assistant-revision-card hidden" id="resultAssistantRevisionCard">
+          <div class="assistant-output-head"><div><strong>修改历史</strong><small>可恢复最近版本</small></div></div>
+          <div class="assistant-revision-list" id="resultAssistantRevisions"></div>
+        </section>
+      </form>
+    </dialog>
+
+    <dialog id="settingsDialog">
+      <form method="dialog" id="settingsForm">
+        <div class="dialog-head">
+          <div><span class="eyebrow">SETTINGS</span><h2>F·BASE 连接</h2></div>
+          <button class="ui-icon-tile tile-ghost" id="settingsCloseButton" type="button" aria-label="关闭">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+
+        <section class="shared-profile-panel">
+          <div class="shared-profile-head">
+            <div><strong>共享 API 档案</strong><small id="profileCount">0 份</small></div>
+            <button class="profile-refresh" type="button" id="refreshProfilesButton">刷新</button>
+          </div>
+          <div class="shared-profile-picker">
+            <div class="profile-select-control" id="profilePicker">
+              <button class="profile-select-toggle" type="button" id="profileToggleButton" aria-haspopup="listbox" aria-expanded="false"><span id="profileCurrent">选择 API 档案</span><i></i></button>
+              <div class="profile-options hidden" id="profileOptions">
+                <label class="profile-search"><span>⌕</span><input id="profileSearchInput" type="search" placeholder="搜索档案或模型"></label>
+                <div class="profile-option-list" id="profileOptionList" role="listbox"></div>
+              </div>
+              <select class="profile-native-select" id="profileSelect" aria-hidden="true" tabindex="-1"></select>
+            </div>
+            <button class="ui-icon-tile" type="button" id="newProfileButton" title="新建档案" aria-label="新建 API 档案">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <button class="ui-icon-tile tile-danger" type="button" id="deleteProfileButton" title="删除当前档案" aria-label="删除当前 API 档案">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></svg>
+            </button>
+          </div>
+          <label class="field profile-name-field">
+            <span>档案名称</span>
+            <input id="profileNameInput" type="text" autocomplete="off" placeholder="例如：通义视觉、OpenAI 日常">
+          </label>
+          <p class="shared-profile-note">与词库网页共用，密钥保存在本机 D 盘数据库，仅允许本机读取。</p>
+        </section>
+
+        <details class="settings-group" open>
+          <summary><span>反推与词库</span><small>视觉模型和本机服务</small><i></i></summary>
+          <div class="settings-group-body">
+            <label class="field">
+              <span>词库服务地址</span>
+              <input id="libraryEndpointInput" type="url" value="http://127.0.0.1:3000">
+              <small>默认连接本机 F·BASE 服务</small>
+            </label>
+            <label class="field">
+              <span>OpenAI 兼容 API 地址</span>
+              <input id="llmEndpointInput" type="url" placeholder="https://api.openai.com/v1/chat/completions">
+            </label>
+            <label class="field">
+              <span>API Key</span>
+              <input id="apiKeyInput" type="password" autocomplete="off" placeholder="保存后写入本机加密档案">
+            </label>
+            <div class="field">
+              <span id="modelInputLabel">视觉模型 ID</span>
+              <div class="model-picker" id="modelPicker">
+                <input id="modelInput" type="text" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="modelOptions" aria-labelledby="modelInputLabel" placeholder="输入名称搜索视觉模型">
+                <button class="ui-caret profile-toggle-caret" type="button" id="modelToggleButton" aria-label="展开模型列表" aria-expanded="false" aria-controls="modelOptions"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                <div class="model-options hidden" id="modelOptions" role="listbox" aria-labelledby="modelInputLabel"></div>
+              </div>
+              <small id="modelHelp">图片拆解需要选择支持视觉输入的模型</small>
+            </div>
+          </div>
+        </details>
+
+        <details class="settings-group">
+          <summary><span>生图配置</span><small>生成时调用</small><i></i></summary>
+          <div class="settings-group-body">
+            <label class="field">
+              <span>生图 API 地址</span>
+              <input id="imageEndpointInput" type="url" placeholder="如 https://api.example.com，或完整 /v1/chat/completions、/v1/images/generations">
+            </label>
+            <label class="field">
+              <span>生图 API Key</span>
+              <input id="imageApiKeyInput" type="password" autocomplete="off" placeholder="保存后写入本机加密档案">
+            </label>
+            <div class="field">
+              <span id="imageModelInputLabel">生图模型 ID</span>
+              <div class="model-picker" id="imageModelPicker">
+                <input id="imageModelInput" type="text" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="imageModelOptions" aria-labelledby="imageModelInputLabel" placeholder="输入名称搜索生图模型">
+                <button class="ui-caret profile-toggle-caret" type="button" id="imageModelToggleButton" aria-label="展开生图模型列表" aria-expanded="false" aria-controls="imageModelOptions"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                <div class="model-options image-model-options hidden" id="imageModelOptions" role="listbox" aria-labelledby="imageModelInputLabel"></div>
+              </div>
+              <input id="imageModelsInput" type="hidden">
+              <small id="imageModelHelp">获取模型后会单独显示生图 API 返回的模型，并按系列分组</small>
+            </div>
+          </div>
+        </details>
+
+        <details class="settings-group">
+          <summary><span>扩展能力</span><small>助手模型与 Eagle</small><i></i></summary>
+          <div class="settings-group-body">
+            <label class="field">
+              <span>助手模型 ID</span>
+              <input id="assistantModelInput" type="text" autocomplete="off" placeholder="留空则使用上方视觉模型">
+              <small>用于润色、改写和结果后小助手</small>
+            </label>
+            <div class="settings-subhead"><strong>Eagle</strong><small>生成结果保存到本机素材库</small></div>
+            <label class="toggle-field"><span><strong>启用 Eagle 保存</strong><small>生成结果可直接保存到本机 Eagle</small></span><input id="eagleEnabledInput" type="checkbox" checked></label>
+            <label class="field">
+              <span>Eagle API 地址</span>
+              <input id="eagleEndpointInput" type="url" placeholder="http://localhost:41595/api/item/addFromURL">
+            </label>
+            <label class="field">
+              <span>Eagle 标签</span>
+              <input id="eagleTagsInput" type="text" autocomplete="off" placeholder="F·BASE,视觉反推,AI生成">
+            </label>
+            <button class="button secondary full" id="testEagleButton" type="button">测试 Eagle 连接</button>
+          </div>
+        </details>
+
+
+        <div class="settings-tools">
+          <button class="button secondary" type="button" id="fetchModelsButton">获取全部模型</button>
+          <button class="button ghost" type="button" id="testConnectionButton">测试连接</button>
+          <button class="button ghost settings-diagnostic-button" type="button" id="runDiagnosticsButton">运行诊断</button>
+        </div>
+        <div class="settings-result hidden" id="settingsResult"></div>
+
+        <div class="dialog-actions">
+          <button class="button primary full" value="default" id="saveSettingsButton">保存设置</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="thumb-preview" id="thumbPreview" hidden><img id="thumbPreviewImage" alt="原图预览"></div>
+
+    <div class="thumb-viewer" id="thumbViewer" hidden>
+      <img id="thumbViewerImage" alt="原图">
+      <button class="thumb-viewer-close ui-icon-tile" id="thumbViewerClose" type="button" title="关闭" aria-label="关闭">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+
+    <script src="color-field.js"></script>
+    <script src="image-sizing.js"></script>
+    <script src="breakdown-labels.js"></script>
+    <script src="reverse-methodology.js"></script>
+    <script src="face-description-library.js"></script>
+    <script src="xiezhen-assets.js"></script>
+    <script src="task-queue-runtime.js"></script>
+    <script src="sidepanel.js"></script>
+  <script src="ux-accessibility.js"></script>
+</body>
+</html>

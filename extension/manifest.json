@@ -1,0 +1,62 @@
+{
+  "manifest_version": 3,
+  "name": "F·BASE",
+  "version": "0.29.14",
+  "description": "在网页悬浮窗口中反推图片或提示词，生成深度结构、色卡与原子词并自动写入 F·BASE。",
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "activeTab",
+    "clipboardRead",
+    "contextMenus",
+    "nativeMessaging",
+    "scripting",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "sidepanel.html",
+        "f-logo.png",
+        "face-description-library.js",
+        "xiezhen-assets.js",
+        "task-queue-runtime.js"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "icon-16.png",
+    "32": "icon-32.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  },
+  "action": {
+    "default_icon": "icon-128.png",
+    "default_title": "打开 F·BASE 浮动窗口"
+  }
+}
