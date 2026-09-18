@@ -50,4 +50,3 @@
   const observer=new MutationObserver(()=>{if(pending)return;pending=true;queueMicrotask(()=>{pending=false;enhance();});});
   enhance();observer.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
 })();
-
